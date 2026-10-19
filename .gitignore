@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Local data and generated model artifacts
+data/raw/**
+!data/raw/**/
+!data/raw/**/.gitkeep
+data/processed/**
+!data/processed/**/
+!data/processed/**/.gitkeep
+data/yolo/images/**
+!data/yolo/images/**/
+!data/yolo/images/**/.gitkeep
+data/yolo/labels/**
+!data/yolo/labels/**/
+!data/yolo/labels/**/.gitkeep
+models/**
+!models/**/
+!models/**/.gitkeep
+
+# Generated reports and logs
+reports/figures/**
+!reports/figures/**/
+!reports/figures/**/.gitkeep
+reports/metrics/**
+!reports/metrics/**/
+!reports/metrics/**/.gitkeep
+logs/
+airflow/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Editors and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
