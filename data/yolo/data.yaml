@@ -1,4 +1,5 @@
-path: .
+# Run training commands from the repository root.
+path: data/yolo
 train: images/train
 val: images/val
 test: images/test
