@@ -113,7 +113,7 @@ The detection workflow includes:
 1. Inspect and validate bounding box annotations.
 2. Convert annotations into YOLO format.
 3. Configure the dataset and class definitions.
-4. Load a pre-trained YOLOv8 detection model.
+4. Load a pre-trained Ultralytics YOLO detection model.
 5. Train the model on the prepared dataset.
 6. Evaluate detection performance using IoU and mAP.
 7. Visualize predicted bounding boxes and confidence scores.
@@ -153,7 +153,7 @@ MobileNetV2 and ResNet50 can be compared using the same data split and evaluatio
 
 ### Object Detection Metrics
 
-The YOLOv8 model is evaluated using:
+The Ultralytics YOLO model is evaluated using:
 
 - **IoU (Intersection over Union):** Measures the overlap between predicted and ground-truth bounding boxes.
 - **mAP@0.5:** Mean Average Precision at an IoU threshold of 0.5.
@@ -211,72 +211,48 @@ Shared volumes can be used to persist datasets, trained models, logs, and evalua
 ## 📁 Project Structure
 
 ```text
-brain-mri-classification-detection/
-│
-├── dags/
-│   └── .gitkeep
-│
+IRM/
+├── .github/
+│   └── workflows/
+│       └── tests.yml
 ├── data/
 │   ├── raw/
-│   │   └── .gitkeep
 │   ├── processed/
-│   │   └── .gitkeep
 │   └── yolo/
-│       ├── images/
-│       │   ├── train/
-│       │   │   └── .gitkeep
-│       │   ├── val/
-│       │   │   └── .gitkeep
-│       │   └── test/
-│       │       └── .gitkeep
-│       ├── labels/
-│       │   ├── train/
-│       │   │   └── .gitkeep
-│       │   ├── val/
-│       │   │   └── .gitkeep
-│       │   └── test/
-│       │       └── .gitkeep
-│       └── .gitkeep
-│
+│       └── data.yaml
 ├── models/
 │   ├── classification/
-│   │   └── .gitkeep
 │   └── detection/
-│       └── .gitkeep
-│
 ├── notebooks/
-│   └── .gitkeep
-│
+│   ├── exploration.ipynb
+│   ├── preprocessing.ipynb
+│   ├── comparaison.ipynb
+│   ├── yolo26n.pt
+│   └── outputs/
+│       ├── config_a_best.keras
+│       └── config_b_best.keras
+├── runs/
+│   └── detect/
+│       └── mri_yolo_v1/
+│           ├── args.yaml
+│           ├── results.csv
+│           └── weights/
+│               ├── best.pt
+│               └── last.pt
 ├── src/
-│   ├── data/
-│   │   └── .gitkeep
-│   ├── classification/
-│   │   └── .gitkeep
-│   ├── detection/
-│   │   └── .gitkeep
-│   └── utils/
-│       └── .gitkeep
-│
-├── app/
-│   └── .gitkeep
-│
-├── reports/
-│   ├── figures/
-│   │   └── .gitkeep
-│   └── metrics/
-│       └── .gitkeep
-│
+│   └── data/
+│       └── validate_yolo_dataset.py
 ├── tests/
-│   └── .gitkeep
-│
+│   └── test_validate_yolo_dataset.py
+├── app/
+├── dags/
+├── reports/
 ├── requirements.txt
-├── Dockerfile
-├── docker-compose.yml
 ├── .gitignore
 └── Readme.md
 ```
 
-The directories are scaffolded with `.gitkeep` files so Git can track them while they are empty. Dataset files and trained model artifacts are not committed. Add implementation files as each project stage is completed.
+The `app/`, `dags/`, and reporting directories are currently scaffolding for planned work. The raw MRI dataset is intentionally not committed; place the prepared YOLO images and labels under `data/yolo/` locally. The notebooks and model artifacts shown above are the files currently tracked in the repository.
 
 ## 🚀 Installation and Setup
 
@@ -425,7 +401,7 @@ Tests should cover:
 - Cleaned and prepared classification dataset.
 - YOLO-formatted detection dataset.
 - Trained classification models and comparison results.
-- Trained YOLOv8 model.
+- Trained Ultralytics YOLO model.
 - Classification and detection evaluation reports.
 - Confusion matrix and learning curves.
 - Detection visualizations and error analysis.
@@ -445,7 +421,7 @@ Actual performance metrics should be added after training and evaluating the mod
 | Day 3 | Train the initial MobileNetV2 classification model |
 | Day 4 | Apply regularization, fine-tuning, and classification evaluation |
 | Day 5 | Prepare YOLO annotations and configure the detection pipeline |
-| Day 6 | Train YOLOv8 and analyze detection performance |
+| Day 6 | Train Ultralytics YOLO and analyze detection performance |
 | Day 7 | Automate the workflow with Apache Airflow |
 | Day 8 | Develop the Streamlit application |
 | Day 9 | Integrate Docker and run tests |
@@ -454,7 +430,7 @@ Actual performance metrics should be added after training and evaluating the mod
 ## 🔮 Future Improvements
 
 - Compare additional pre-trained CNN architectures.
-- Experiment with different YOLOv8 model sizes.
+- Experiment with different Ultralytics YOLO model sizes.
 - Optimize inference speed and memory consumption.
 - Add more detailed visualization of model predictions.
 - Track experiments and metrics across training runs.
