@@ -9,6 +9,12 @@ The system combines a pre-trained CNN model for image classification with an Ult
 The project is designed for educational and experimental purposes to explore Computer Vision, Deep Learning, and MLOps workflows.
 
 
+## 📋 Project Management
+
+Project tasks, sprint planning, and backlog tracking are managed in Jira:
+
+- [Open the Jira project backlog](https://oussamalamlouki047.atlassian.net/jira/software/c/projects/IP/boards/9/backlog?atlOrigin=eyJpIjoiZWJjY2M2OTQ0NDM0NGIwOGJmNzQwYTM3Mzg0NTM3YTEiLCJwIjoiaiJ9)
+
 ## 🚧 Current Implementation Status
 
 The repository currently contains the following work:
