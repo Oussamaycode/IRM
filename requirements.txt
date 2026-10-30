@@ -1,0 +1,15 @@
+# Core project dependencies
+numpy
+pandas
+matplotlib
+scikit-learn
+opencv-python
+PyYAML
+
+# Deep learning and object detection
+tensorflow
+ultralytics
+
+# Notebook environment
+jupyter
+ipykernel
