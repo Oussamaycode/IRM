@@ -1,0 +1,9 @@
+path: C:\workspace\projects\IRM\data\yolo
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: Glioma
+  1: Meningioma
+  2: No Tumor
+  3: Pituitary
