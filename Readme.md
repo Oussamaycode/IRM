@@ -8,6 +8,19 @@ The system combines a pre-trained CNN model for image classification with YOLOv8
 
 The project is designed for educational and experimental purposes to explore Computer Vision, Deep Learning, and MLOps workflows.
 
+
+## 🚧 Current Implementation Status
+
+The repository currently contains the following work:
+
+- Dataset exploration and preprocessing notebooks.
+- MRI image classification experiments using MobileNetV2 transfer learning.
+- Saved classification model artifacts for two configurations.
+- A YOLO dataset configuration for the four MRI categories.
+- An initial YOLO detection training run, including its training configuration, metrics, plots, and model weights.
+
+The Airflow orchestration, Streamlit interface, and Docker deployment described below are planned project components; they are not yet included as working implementations in the repository. The notebooks and training artifacts are experimental and should be validated before reuse.
+
 **⚠️ Medical Disclaimer:** This project is intended for educational and research purposes only. It is not a medical diagnostic tool and must not be used to make clinical decisions.
 
 ## 🎯 Objectives
