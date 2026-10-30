@@ -4,7 +4,7 @@
 
 This project aims to develop a Deep Learning prototype for **classifying brain MRI images and detecting tumor regions** using Transfer Learning and Object Detection techniques.
 
-The system combines a pre-trained CNN model for image classification with YOLOv8 for tumor localization. It also integrates Airflow for pipeline automation, Streamlit for the user interface, and Docker for containerization.
+The system combines a pre-trained CNN model for image classification with an Ultralytics YOLO model for tumor localization. It also integrates Airflow for pipeline automation, Streamlit for the user interface, and Docker for containerization.
 
 The project is designed for educational and experimental purposes to explore Computer Vision, Deep Learning, and MLOps workflows.
 
@@ -17,6 +17,7 @@ The repository currently contains the following work:
 - MRI image classification experiments using MobileNetV2 transfer learning.
 - Saved classification model artifacts for two configurations.
 - A YOLO dataset configuration for the four MRI categories.
+- A reusable YOLO dataset validation script with unit tests.
 - An initial YOLO detection training run, including its training configuration, metrics, plots, and model weights.
 
 The Airflow orchestration, Streamlit interface, and Docker deployment described below are planned project components; they are not yet included as working implementations in the repository. The notebooks and training artifacts are experimental and should be validated before reuse.
@@ -70,7 +71,7 @@ The dataset preparation pipeline includes:
 | Python | Main programming language |
 | TensorFlow / Keras | Deep Learning and image classification |
 | MobileNetV2 / ResNet50 | Transfer Learning architectures |
-| Ultralytics YOLOv8 | Tumor object detection |
+| Ultralytics YOLO | Tumor object detection |
 | OpenCV | Image processing and visualization |
 | NumPy / Pandas | Data manipulation and analysis |
 | Matplotlib / Seaborn | Data visualization and evaluation plots |
@@ -103,9 +104,9 @@ Candidate architectures:
 - **MobileNetV2:** A lightweight architecture suitable for efficient inference.
 - **ResNet50:** A deeper architecture that can be used for performance comparison.
 
-### 2. Tumor Detection with YOLOv8
+### 2. Tumor Detection with Ultralytics YOLO
 
-YOLOv8 is used to identify and localize annotated tumor regions in MRI images.
+An Ultralytics YOLO detector is used to identify and localize annotated tumor regions in MRI images. The committed initial training configuration references the `yolo26n.pt` checkpoint.
 
 The detection workflow includes:
 
@@ -323,7 +324,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-The dependency file should contain the packages required for data processing, TensorFlow, Ultralytics, Streamlit, Airflow, evaluation, and testing. Airflow should be installed using the official installation instructions and compatible constraints for the selected Python version.
+The current `requirements.txt` covers the core data-science, TensorFlow, Ultralytics, and notebook dependencies. Streamlit and Airflow are planned components and are not included as working implementations yet. Install Apache Airflow separately using its official installation instructions and constraints compatible with your Python version.
 
 ### 4. Download the Dataset
 
@@ -333,16 +334,18 @@ https://www.kaggle.com/datasets/ahmedsorour1/mri-for-brain-tumor-with-bounding-b
 
 Extract the files into the `data/raw/` directory and adapt the preprocessing scripts to the dataset's actual directory structure and annotation format.
 
-### 5. Prepare the Data
+### 5. Validate the YOLO Dataset
 
-Run the data validation and preprocessing scripts:
+After placing the YOLO-formatted images and labels under `data/yolo/`, run the dataset checker from the repository root:
 
 ```bash
-python src/data/validate_data.py
-python src/data/preprocess.py
+python -m pip install PyYAML
+python -m src.data.validate_yolo_dataset --data data/yolo/data.yaml
 ```
 
-These commands assume the scripts have been implemented with the corresponding command-line entry points.
+The checker verifies that the train/validation/test image directories exist, that images are present, and that annotation rows use valid class IDs and normalized bounding-box values. Missing label files are reported as warnings because they may represent intentional background images. The dataset itself is not committed to this repository.
+
+The remaining preprocessing and training commands below describe planned entry points; corresponding scripts are not yet implemented.
 
 ### 6. Train the Classification Model
 
@@ -350,7 +353,7 @@ These commands assume the scripts have been implemented with the corresponding c
 python src/classification/train.py
 ```
 
-### 7. Train the YOLOv8 Detection Model
+### 7. Train the YOLO Detection Model
 
 ```bash
 python src/detection/train.py
@@ -401,7 +404,8 @@ Airflow may require additional initialization steps and configuration before its
 Run the automated tests with:
 
 ```bash
-pytest tests/
+python -m pip install PyYAML
+python -m unittest discover -s tests -v
 ```
 
 Tests should cover:
